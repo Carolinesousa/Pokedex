@@ -5,29 +5,29 @@
 </template>
 <script>
 export default {
-  name: 'Button',
+  name: "Button",
   data() {
     return {
-      btnClass: this.isIcon ?
-        `${this.class} nb-button nb-icon-button` :
-        `${this.class} nb-button nb-normal-button`
-    }
+      btnClass: this.isIcon
+        ? `${this.class} nb-button nb-icon-button`
+        : `${this.class} nb-button nb-normal-button`,
+    };
   },
   props: {
     isIcon: Boolean,
     onClick: Function,
     type: {
       type: String,
-      default: "button"
+      default: "button",
     },
     class: String,
   },
   methods: {
     handleClick() {
-      if (this.onclick) this.onclick()
-    }
-  }
-}
+      if (this.onclick) this.onclick();
+    },
+  },
+};
 </script>
 
 <style>
@@ -48,8 +48,7 @@ export default {
   border: 0;
 }
 
-.nb-button:hover,
-.nb-button:focus {
+.nb-button:hover {
   filter: brightness(0.9);
 }
 
@@ -57,7 +56,6 @@ export default {
   border-radius: 50%;
   height: 48px;
   width: 48px;
-
 }
 
 .nb-normal-button {

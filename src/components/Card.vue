@@ -1,29 +1,68 @@
 <template>
   <div class="nb-card">
-    <div class="card-img" style="background-color: rgb(255, 245, 157);">
-      <img src="../assets/pick.png" alt="">
+    <div class="card-img" :style="imageBackgroundColor">
+      <img :src="imageHighQualityUrl" alt="" />
     </div>
     <div class="nb-card-body">
-      <h3>Pikachu
-        <span class="id">#0293</span>
+      <h3>
+        {{ titledName }}
+        <span class="id">#{{ pokemon.id }}</span>
       </h3>
-      <p>A strange seed was planted on its back at birth. The plant sprouts and grows with this POKéMON.</p>
+
+      <p>{{ description }}</p>
     </div>
     <div class="nb-card-footer">
-      <span class="badge p-2" style="background-color: rgb(168, 183, 54); font-size: 14px">bug</span>
+      <span
+        v-for="type in pokemon.types"
+        :key="type.type.name"
+        class="badge p-2"
+        :style="imageBackgroundColor"
+      >
+        {{ type.type.name }}
+      </span>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'card'
-}
+  name: "card",
+  props: {
+    pokemon: Object,
+  },
+  computed: {
+    imageBackgroundColor() {
+      return `background-color: ${this.pokemon.specie.color.name}`;
+    },
+
+    imageHighQualityUrl() {
+      const baseUrl =
+        "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/";
+      return baseUrl + this.pokemon.sprites.front_default.split("/").at(-1);
+    },
+
+    titledName() {
+      const string = this.pokemon.name;
+      return string.charAt(0).toUpperCase() + string.slice(1);
+    },
+
+    description() {
+      const pokemonMultiLanguageDescription =
+        this.pokemon.specie.flavor_text_entries;
+
+      const description = pokemonMultiLanguageDescription.find(
+        (description) => description.language.name === "en"
+      );
+
+      return description?.flavor_text;
+    },
+  },
+};
 </script>
 <style>
 .nb-card {
-  border-radius: .375rem;
-  box-shadow: 0 10px 16px -10px rgba(0, 0, 0, .1);
+  border-radius: 0.375rem;
+  box-shadow: 0 10px 16px -10px rgba(0, 0, 0, 0.1);
 
   cursor: pointer;
 
@@ -44,13 +83,14 @@ export default {
 .nb-card-active {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
-
 }
 
 .nb-card-footer {
   background-color: #fff;
   display: flex;
   flex-direction: row;
+
+  gap: 4px;
   padding: 1rem;
 }
 
@@ -66,13 +106,18 @@ export default {
   height: 200px;
   max-width: 100%;
   padding: 1rem;
+
+  filter: brightness(0.8);
 }
 
 .card-img img {
   display: block;
   margin: 0 auto;
-  max-height: 100%;
-  max-width: 100%;
+
+  height: 180px;
+  width: auto;
+
+  filter: brightness(1.2);
 }
 
 .id {

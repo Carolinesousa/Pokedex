@@ -10,11 +10,13 @@ const store = createStore({
       isLoadingPokemons: false,
       pokemons: [],
       canLoadMore: false,
-
       selectedPokemonId: null,
     };
   },
   mutations: {
+    selectPokemon(state, id = null) {
+      state.selectedPokemonId = id;
+    },
     loadPokemons(state, offset = 0) {
       state.isLoadingPokemons = true;
       let canLoadMore = false;

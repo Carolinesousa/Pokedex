@@ -1,5 +1,11 @@
 <template>
-  <div class="nb-card">
+  <div
+    tabindex="0"
+    :aria-label="`Card for ${titledName}`"
+    class="nb-card"
+    @click="handleSelectPokemon"
+    @keypress="handleTapEnter"
+  >
     <div class="card-img" :style="imageBackgroundColor">
       <img :src="imageHighQualityUrl" alt="" />
     </div>
@@ -29,6 +35,15 @@ export default {
   name: "card",
   props: {
     pokemon: Object,
+    openModal: Function,
+  },
+  methods: {
+    handleSelectPokemon() {
+      this.openModal(this.pokemon.id);
+    },
+    handleTapEnter(e) {
+      if (e.key === "Enter") this.handleSelectPokemon();
+    },
   },
   computed: {
     imageBackgroundColor() {
@@ -59,7 +74,7 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
 .nb-card {
   border-radius: 0.375rem;
   box-shadow: 0 10px 16px -10px rgba(0, 0, 0, 0.1);
@@ -74,14 +89,17 @@ export default {
 
   overflow: hidden;
 
-  transition-property: box-shadow;
-  transition-delay: 100ms;
-  transition-timing-function: ease;
+  transition-property: box-shadow, border-radius;
+  transition-delay: 200ms;
+  transition-timing-function: linear;
+
+  z-index: 1;
 }
 
 .nb-card:hover,
-.nb-card-active {
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+.nb-card-active,
+.nb-card:focus {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   border-radius: 12px;
 }
 

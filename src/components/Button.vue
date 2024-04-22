@@ -30,7 +30,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .nb-button {
   width: 100%;
   height: 40px;

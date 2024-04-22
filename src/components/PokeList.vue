@@ -1,10 +1,13 @@
 <template>
   <main class="nb-content">
+    <Modal :show="isDetailModalOpen" :close="closeModal" />
+
     <div class="nb-card-container">
       <Card
         v-for="pokemon in pokemons"
         :pokemon="pokemon"
         :key="pokemon.name"
+        :open-modal="openModal"
       />
     </div>
 
@@ -27,17 +30,13 @@
 <script>
 import Card from "./Card.vue";
 import Button from "./Button.vue";
+import Modal from "./Modal.vue";
 import LoadingSpinner from "./LoadingSpinner.vue";
 
 const POKEMONS_PER_QUERY = 40;
 
 export default {
   name: "poke-list",
-  data() {
-    return {
-      isLoadMoreLoading: false,
-    };
-  },
   computed: {
     pokemons() {
       return this.$store.state.pokemons ?? [];
@@ -50,22 +49,42 @@ export default {
         this.$store.state.pokemons.length && this.$store.state.isLoadingPokemons
       );
     },
+    isDetailModalOpen() {
+      return Boolean(this.$store.state.selectedPokemonId);
+    },
   },
   methods: {
+    openModal(id) {
+      this.$store.commit("selectPokemon", id);
+    },
+    closeModal() {
+      this.$store.commit("selectPokemon");
+    },
     handleLoadMore() {
       const offset = this.$store.state.offset + POKEMONS_PER_QUERY;
       this.$store.commit("loadPokemons", offset);
     },
+    handleScroll() {
+      if (
+        window.innerHeight + window.scrollY >= document.body.offsetHeight &&
+        !this.isLoadMoreLoading
+      ) {
+        this.handleLoadMore();
+      }
+    },
   },
   mounted() {
     this.$store.commit("loadPokemons");
-
-    window.addEventListener();
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.handleScroll);
   },
   components: {
     Card,
     Button,
     LoadingSpinner,
+    Modal,
   },
 };
 </script>
@@ -84,6 +103,8 @@ export default {
   gap: 24px;
 
   max-width: 1400px;
+
+  z-index: 1;
 }
 
 .nb-load-more-button {

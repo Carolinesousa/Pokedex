@@ -1,6 +1,7 @@
 import { createStore } from "vuex";
 import listPokemons from "./services/pokeapi/listPokemons";
 import getPokemonDetails from "./services/pokeapi/getPokemonDetails";
+import loadFullPokemonData from "./utils/loadFullPokemonData";
 
 const store = createStore({
   state() {
@@ -17,27 +18,28 @@ const store = createStore({
     selectPokemon(state, id = null) {
       state.selectedPokemonId = id;
     },
+    async searchPokemons(state, q) {
+      state.isLoadingPokemons = true;
+
+      listPokemons(0, 100000)
+        .then(async (response) => {
+          const results = response.data.results.filter((result) =>
+            result.name.includes(q.toLowerCase())
+          );
+
+          state.pokemons = await loadFullPokemonData(results);
+          state.canLoadMore = false;
+          state.offset = 0;
+        })
+        .finally(() => (state.isLoadingPokemons = false));
+    },
     loadPokemons(state, offset = 0) {
       state.isLoadingPokemons = true;
       let canLoadMore = false;
 
       listPokemons(offset).then(async (response) => {
         canLoadMore = !!response.data.next;
-        const promises = response.data.results.map(async (result) => {
-          const pokemonDetail = await getPokemonDetails(result.url).then(
-            (response) => response.data
-          );
-          const specieDetail = await getPokemonDetails(
-            pokemonDetail.species.url
-          ).then((response) => response.data);
-
-          return {
-            ...pokemonDetail,
-            specie: { ...specieDetail },
-          };
-        });
-
-        state.pokemons = [...state.pokemons, ...(await Promise.all(promises))];
+        state.pokemons = await loadFullPokemonData(response.data.results);
         state.offset = offset;
         state.isLoadingPokemons = false;
         state.canLoadMore = canLoadMore;

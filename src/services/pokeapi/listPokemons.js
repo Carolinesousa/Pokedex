@@ -1,7 +1,7 @@
-import client from "../pokeapi"
+import client from "../pokeapi";
 
-const listPokemons = async (offset = 0) => {
-  return await client.get(`/pokemon/?limit=40&offset=${offset}`)
-}
+const listPokemons = async (offset = 0, limit = 40) => {
+  return await client.get(`/pokemon/?limit=${limit}&offset=${offset}`);
+};
 
-export default listPokemons
+export default listPokemons;

@@ -6,15 +6,22 @@
     <div
       v-else
       v-for="(evolution, index) in evolutions"
-      :key="evolution.name"
+      :key="index"
       class="evolution-step"
     >
-      <div v-if="!!evolution" class="step-circle" :style="imageBackgroundColor">
+      <div
+        v-if="!!evolution?.name"
+        class="step-circle"
+        :style="imageBackgroundColor"
+      >
         <p>
           {{ evolution.name }}
         </p>
       </div>
-      <div v-if="index < evolutions.length - 1" class="arrow">
+      <div
+        v-if="index < evolutions.length - 1 && !!evolution?.name"
+        class="arrow"
+      >
         <Arrow />
       </div>
     </div>
@@ -66,8 +73,8 @@ export default {
         this.evolutions = [
           chain?.species,
           chain?.evolves_to[0]?.species,
-          chain?.evolves_to[0].evolves_to[0]?.species,
-        ];
+          chain?.evolves_to[0]?.evolves_to[0]?.species,
+        ].filter((evolution) => evolution);
       })
       .finally(() => (this.isLoading = false));
   },

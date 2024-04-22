@@ -32,16 +32,24 @@
         <div class="nb-modal-body">
           <ul class="nav nav-tabs card-header-tabs">
             <li :class="getNavItemClass('about')">
-              <a class="nav-link" @click="changeTab('about')">About</a>
+              <a class="nav-link" @click="changeTab('about')">{{
+                texts.aboutTab
+              }}</a>
             </li>
             <li :class="getNavItemClass('movement')">
-              <a class="nav-link" @click="changeTab('movement')">Movements</a>
+              <a class="nav-link" @click="changeTab('movement')">{{
+                texts.movementTab
+              }}</a>
             </li>
             <li :class="getNavItemClass('evolution')">
-              <a class="nav-link" @click="changeTab('evolution')">Evolutions</a>
+              <a class="nav-link" @click="changeTab('evolution')">{{
+                texts.evolutionTab
+              }}</a>
             </li>
             <li :class="getNavItemClass('games')">
-              <a class="nav-link" @click="changeTab('games')">Games</a>
+              <a class="nav-link" @click="changeTab('games')">{{
+                texts.gamesTab
+              }}</a>
             </li>
           </ul>
           <div class="about-tab" v-if="currentTab === 'about'">
@@ -74,6 +82,8 @@ import GamesTable from "./GamesTable.vue";
 import Evolutions from "./Evolutions.vue";
 import About from "./About.vue";
 import Arrow from "./icons/Arrow.vue";
+import texts from "@/utils/internationalization";
+
 export default {
   name: "Modal",
   components: {
@@ -86,6 +96,7 @@ export default {
   data() {
     return {
       currentTab: "about",
+      texts,
     };
   },
   methods: {

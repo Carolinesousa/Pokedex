@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isLoading" class="spinner" aria-label="Loading">
+  <div v-if="isLoading" class="spinner" :aria-label="texts.loadingAriaLabel">
     <div class="spinner-border" role="status">
       <span class="sr-only"></span>
     </div>
@@ -7,12 +7,19 @@
 </template>
 
 <script>
+import texts from "@/utils/internationalization";
+
 export default {
   props: {
     isLoading: {
       type: Boolean,
       required: true,
     },
+  },
+  data() {
+    return {
+      texts,
+    };
   },
 };
 </script>

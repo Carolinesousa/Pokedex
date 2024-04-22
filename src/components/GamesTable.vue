@@ -3,7 +3,7 @@
     <table>
       <thead>
         <tr :style="'border-bottom: 1px solid ' + color">
-          <th>Games Version</th>
+          <th>{{ texts.gameVersion }}</th>
         </tr>
       </thead>
       <tbody>
@@ -14,15 +14,18 @@
     </table>
 
     <div class="pagination">
-      <button @click="prevPage" :disabled="currentPage === 1">Anterior</button>
+      <button @click="prevPage" :disabled="currentPage === 1">
+        {{ texts.previousButton }}
+      </button>
       <button @click="nextPage" :disabled="currentPage === totalPages">
-        Próxima
+        {{ texts.nextButton }}
       </button>
     </div>
   </div>
 </template>
 
 <script>
+import texts from "@/utils/internationalization";
 export default {
   name: "Games",
   props: {
@@ -35,7 +38,8 @@ export default {
   data() {
     return {
       currentPage: 1,
-      itemsPerPage: 5, // Quantidade de itens por página
+      itemsPerPage: 5,
+      texts,
     };
   },
   computed: {

@@ -35,14 +35,17 @@ const store = createStore({
     },
     loadPokemons(state, offset = 0) {
       state.isLoadingPokemons = true;
-      let canLoadMore = false;
+      const shouldResetPokemon = offset === 0;
 
       listPokemons(offset).then(async (response) => {
-        canLoadMore = !!response.data.next;
-        state.pokemons = await loadFullPokemonData(response.data.results);
+        const newPokemons = await loadFullPokemonData(response.data.results);
+
+        if (shouldResetPokemon) state.pokemons = newPokemons;
+        else state.pokemons = [...state.pokemons, ...newPokemons];
+
         state.offset = offset;
         state.isLoadingPokemons = false;
-        state.canLoadMore = canLoadMore;
+        state.canLoadMore = !!response.data.next;
       });
     },
   },

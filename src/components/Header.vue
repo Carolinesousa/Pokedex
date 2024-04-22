@@ -1,11 +1,22 @@
 <template>
   <div class="nb-banner">
     <div class="nb-search">
+      <select
+        class="nb-select form-control"
+        name="language"
+        :value="language"
+        @input="handleSelectLanguage"
+      >
+        <option value="en"><span>🇬🇧</span> EN</option>
+        <option value="es"><span>🇪🇸</span> ES</option>
+        <option value="pt"><span>🇧🇷</span> PT</option>
+      </select>
       <input
         type="text"
-        placeholder="Pesquise por Pokemons"
+        :placeholder="texts.searchPlaceholder"
         :value="inputSearch"
         @input="handleInputSearch"
+        @keypress="handleInputSearchOnEnter"
       />
       <Button :isIcon="true" :onclick="handleSearch" class="nb-search-button">
         <Search />
@@ -18,13 +29,17 @@
 </template>
 
 <script>
+import { getLanguage, setLanguage } from "@/utils/internationalization";
 import Button from "./Button.vue";
 import Search from "./icons/Search.vue";
+import texts from "@/utils/internationalization";
 export default {
   name: "header-banner",
   data() {
     return {
       inputSearch: "",
+      language: getLanguage(),
+      texts: texts,
     };
   },
   components: {
@@ -33,10 +48,18 @@ export default {
   },
   methods: {
     handleSearch() {
-      this.$store.commit("searchPokemons", this.inputSearch);
+      if (this.inputSearch === "") this.$store.commit("loadPokemons", 0);
+      else this.$store.commit("searchPokemons", this.inputSearch);
     },
     handleInputSearch(e) {
       this.inputSearch = e.target.value;
+    },
+    handleSelectLanguage(e) {
+      setLanguage(e.target.value);
+      window.location.reload();
+    },
+    handleInputSearchOnEnter(e) {
+      if (e.key === "Enter") this.handleSearch();
     },
   },
 };
@@ -93,6 +116,35 @@ export default {
 }
 
 .nb-search-button {
-  background-color: rgb(255, 245, 157);
+  background-color: #fdca05;
+}
+.nb-search-button svg {
+  fill: #527cde;
+}
+.nb-select {
+  width: auto;
+  height: 48px;
+  color: #000;
+  margin: 10px;
+  background-color: #fdca05;
+  color: #527cde;
+
+  border: none;
+}
+
+.nb-select:focus {
+  background-color: #fdca05;
+  outline: none;
+}
+
+.nb-select,
+.nb-select option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nb-select span {
+  font-size: 20px;
 }
 </style>

@@ -3,17 +3,21 @@
     <Modal :show="isDetailModalOpen" :close="closeModal" />
 
     <div class="nb-card-container">
+      <div class="nb-loading-content" v-if="isLoadingCards">
+        <LoadingSpinner :isLoading="isLoadingCards" />
+      </div>
       <Card
         v-for="pokemon in pokemons"
         :pokemon="pokemon"
         :key="pokemon.name"
         :open-modal="openModal"
+        v-else
       />
     </div>
 
     <div class="load-more-button-content">
       <LoadingSpinner
-        aria-label="Loading more Pokemons"
+        :aria-label="texts.loadingMoreAriaLabel"
         :isLoading="isLoadMoreLoading"
         v-if="isLoadMoreLoading"
       />
@@ -22,7 +26,7 @@
         class="nb-load-more-button"
         :onclick="handleLoadMore"
       >
-        Load More
+        {{ texts.loadMore }}
       </Button>
     </div>
   </main>
@@ -32,11 +36,17 @@ import Card from "./Card.vue";
 import Button from "./Button.vue";
 import Modal from "./Modal.vue";
 import LoadingSpinner from "./LoadingSpinner.vue";
+import texts from "@/utils/internationalization";
 
 const POKEMONS_PER_QUERY = 40;
 
 export default {
   name: "poke-list",
+  data() {
+    return {
+      texts,
+    };
+  },
   computed: {
     pokemons() {
       return this.$store.state.pokemons ?? [];
@@ -47,6 +57,12 @@ export default {
     isLoadMoreLoading() {
       return (
         this.$store.state.pokemons.length && this.$store.state.isLoadingPokemons
+      );
+    },
+    isLoadingCards() {
+      return (
+        !this.$store.state.pokemons.length &&
+        this.$store.state.isLoadingPokemons
       );
     },
     isDetailModalOpen() {
@@ -67,7 +83,8 @@ export default {
     handleScroll() {
       if (
         window.innerHeight + window.scrollY >= document.body.offsetHeight &&
-        !this.isLoadMoreLoading
+        !this.isLoadMoreLoading &&
+        this.$store.state.canLoadMore
       ) {
         this.handleLoadMore();
       }
@@ -129,6 +146,15 @@ export default {
   justify-content: center;
 
   margin-bottom: 20px;
+}
+
+.nb-loading-content {
+  width: 100%;
+  height: calc(100vh - 180px);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (max-width: 560px) {

@@ -1,7 +1,7 @@
 <template>
   <div
     tabindex="0"
-    :aria-label="`Card for ${titledName}`"
+    :aria-label="`${texts.cardAriaLabel} ${titledName}`"
     class="nb-card"
     @click="handleSelectPokemon"
     @keypress="handleTapEnter"
@@ -31,11 +31,18 @@
 </template>
 
 <script>
+import texts from "@/utils/internationalization";
+
 export default {
   name: "card",
   props: {
     pokemon: Object,
     openModal: Function,
+  },
+  data() {
+    return {
+      texts,
+    };
   },
   methods: {
     handleSelectPokemon() {
@@ -51,6 +58,8 @@ export default {
     },
 
     imageHighQualityUrl() {
+      if (!this.pokemon.sprites.front_default) return "";
+
       const baseUrl =
         "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/";
       return baseUrl + this.pokemon.sprites.front_default.split("/").at(-1);

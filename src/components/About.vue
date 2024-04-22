@@ -2,14 +2,14 @@
   <div class="about-container">
     <div>
       <p>
-        Weight <span>{{ pokeAbout.weight }}</span>
+        {{ texts.weight }} <span>{{ pokeAbout.weight }}</span>
       </p>
       <p>
-        Height <span>{{ pokeAbout.height }}</span>
+        {{ texts.height }} <span>{{ pokeAbout.height }}</span>
       </p>
     </div>
     <div>
-      <p>Abilities</p>
+      <p>{{ texts.abilities }}</p>
       <span
         v-for="ability in pokeAbout.abilities"
         :key="ability.ability.name"
@@ -22,8 +22,12 @@
   </div>
 </template>
 <script>
+import texts from "@/utils/internationalization";
 export default {
   name: "About",
+  data() {
+    return { texts };
+  },
   props: {
     pokeAbout: Array,
     imageBackgroundColor: {

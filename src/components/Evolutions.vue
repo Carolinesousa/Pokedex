@@ -129,7 +129,7 @@ export default {
   transform: rotate(180deg);
 }
 
-@media (max-width: 430px) {
+@media (max-width: 620px) {
   .nb-container,
   .evolution-step {
     flex-direction: column;

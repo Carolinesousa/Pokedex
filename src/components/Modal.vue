@@ -260,7 +260,7 @@ export default {
   color: #fff !important;
 }
 
-@media (max-width: 540px) {
+@media (max-width: 540px), (max-height: 768px) {
   .modal-container {
     top: 20px;
   }

@@ -58,11 +58,16 @@ export default {
     },
 
     imageHighQualityUrl() {
-      if (!this.pokemon.sprites.front_default) return "";
+      const imgUrl =
+        this?.pokemon?.sprites?.front_default ??
+        this.pokemon.sprites.front_shiny;
+      if (!imgUrl) return "";
+
+      if (!this?.pokemon?.sprites?.front_default) return imgUrl;
 
       const baseUrl =
         "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/";
-      return baseUrl + this.pokemon.sprites.front_default.split("/").at(-1);
+      return baseUrl + imgUrl.split("/").at(-1);
     },
 
     titledName() {

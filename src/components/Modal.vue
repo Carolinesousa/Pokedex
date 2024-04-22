@@ -173,7 +173,7 @@ export default {
   min-width: 360px;
   max-width: 90%;
 
-  font-size: 16px;
+  font-size: 1rem;
 
   overflow-y: auto;
   position: absolute;
@@ -204,7 +204,7 @@ export default {
   width: 100%;
   color: #fff;
   height: 30px;
-  font-size: 20px;
+  font-size: 1.25rem;
   margin-bottom: 20px;
 }
 .nb-modal-header {
@@ -212,7 +212,7 @@ export default {
 }
 .nb-modal-header p {
   color: #fff;
-  font-size: 30px;
+  font-size: 1.875rem;
   font-weight: 700;
   margin: 0;
 }
@@ -220,11 +220,11 @@ export default {
   color: #fff;
   float: right;
   font-weight: 600;
-  font-size: 20px;
+  font-size: 1.25rem;
 }
 .nb-badge {
   background-color: rgba(255, 255, 255, 0.3);
-  font-size: 12px !important;
+  font-size: 0.75rem !important;
   padding: 6px !important;
 }
 .poke-img {
@@ -243,14 +243,14 @@ export default {
   filter: brightness(1.2);
 }
 .nav-item a {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 700;
   color: black;
   text-decoration: none;
 }
 .nav-item a:hover,
 .nav-item-active a {
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 700;
   color: green;
   text-decoration: none;
@@ -260,9 +260,9 @@ export default {
   color: #fff !important;
 }
 
-@media (max-height: 720px) {
+@media (max-width: 540px) {
   .modal-container {
-    top: 10px;
+    top: 20px;
   }
 }
 </style>

@@ -109,14 +109,14 @@ export default {
 }
 .step-circle p {
   color: #000;
-  font-size: 15px;
+  font-size: 1rem;
   font-weight: 600;
   margin-bottom: 0;
 }
 
 .arrow {
   margin: 0 10px;
-  font-size: 20px;
+  font-size: 1.25rem;
   width: 30px;
 
   transform: rotate(180deg);
@@ -135,10 +135,6 @@ export default {
   .step-circle {
     width: 100px;
     height: 100px;
-  }
-
-  .step-circle p {
-    font-size: 16px;
   }
 }
 </style>

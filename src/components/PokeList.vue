@@ -108,6 +108,7 @@ export default {
 <style scoped>
 .nb-content {
   background-color: #f5f2f2;
+  min-height: calc(100vh - 180px);
 }
 
 .nb-card-container {

@@ -1,16 +1,6 @@
 <template>
   <div class="nb-banner">
     <div class="nb-search">
-      <select
-        class="nb-select form-control"
-        name="language"
-        :value="language"
-        @input="handleSelectLanguage"
-      >
-        <option value="en"><span>🇬🇧</span> EN</option>
-        <option value="es"><span>🇪🇸</span> ES</option>
-        <option value="pt"><span>🇧🇷</span> PT</option>
-      </select>
       <input
         type="text"
         :placeholder="texts.searchPlaceholder"
@@ -21,6 +11,16 @@
       <Button :isIcon="true" :onclick="handleSearch" class="nb-search-button">
         <Search />
       </Button>
+      <select
+        class="nb-select form-control"
+        name="language"
+        :value="language"
+        @input="handleSelectLanguage"
+      >
+        <option value="en"><span>🇬🇧</span> EN</option>
+        <option value="es"><span>🇪🇸</span> ES</option>
+        <option value="pt"><span>🇧🇷</span> PT</option>
+      </select>
     </div>
     <div class="nb-logo-container">
       <img src="../assets/logo.png" />
@@ -72,11 +72,13 @@ export default {
   color: #fff;
   text-align: left;
 
-  height: 180px;
+  min-height: 180px;
 
   display: flex;
   justify-content: flex-start;
   flex-direction: column-reverse;
+
+  padding: 20px;
 }
 
 .nb-banner > div {
@@ -87,7 +89,10 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 8px;
+  flex-wrap: wrap;
+
+  gap: 8px;
+  padding: 20px;
 }
 
 .nb-search input {
@@ -95,9 +100,8 @@ export default {
   border-radius: 24px;
   color: #333;
   background-color: #fff;
-  font-size: 20px;
+  font-size: 1.25rem;
   height: 48px;
-  margin-right: 0.5rem;
   padding-inline-start: 1.2rem;
   width: 560px;
 }
@@ -125,7 +129,6 @@ export default {
   width: auto;
   height: 48px;
   color: #000;
-  margin: 10px;
   background-color: #fdca05;
   color: #527cde;
 
@@ -145,6 +148,6 @@ export default {
 }
 
 .nb-select span {
-  font-size: 20px;
+  font-size: 1.25rem;
 }
 </style>

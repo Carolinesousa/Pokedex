@@ -1,5 +1,5 @@
 const enTexts = {
-  searchPlaceholder: "Search for Pokemons",
+  searchPlaceholder: "Search for Pokemons by ID or Name",
   searchButtonAriaLabel: "Search",
   aboutTab: "About",
   movementTab: "Movements",

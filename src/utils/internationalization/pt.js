@@ -1,5 +1,5 @@
 const ptTexts = {
-  searchPlaceholder: "Pesquise por Pokemons",
+  searchPlaceholder: "Pesquise por Pokemons pelo ID ou Nome",
   searchButtonAriaLabel: "Pesquisar",
   aboutTab: "Sobre",
   movementTab: "Movimentos",

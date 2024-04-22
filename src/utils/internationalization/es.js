@@ -1,5 +1,5 @@
 const esTexts = {
-  searchPlaceholder: "Buscar Pokemons",
+  searchPlaceholder: "Buscar Pokemons por ID or Nombre",
   searchButtonAriaLabel: "Buscar",
   aboutTab: "Acerca de",
   movementTab: "Movimientos",

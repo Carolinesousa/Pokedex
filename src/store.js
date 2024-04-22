@@ -23,8 +23,10 @@ const store = createStore({
 
       listPokemons(0, 100000)
         .then(async (response) => {
-          const results = response.data.results.filter((result) =>
-            result.name.includes(q.toLowerCase())
+          const results = response.data.results.filter(
+            (result) =>
+              result.name.includes(q.toLowerCase()) ||
+              result.url.includes(`/${q.toLowerCase()}/`)
           );
 
           state.pokemons = await loadFullPokemonData(results);

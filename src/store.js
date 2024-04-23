@@ -20,7 +20,7 @@ const store = createStore({
     },
     async searchPokemons(state, q) {
       state.isLoadingPokemons = true;
-
+      state.pokemons = [];
       listPokemons(0, 100000)
         .then(async (response) => {
           const results = response.data.results.filter(

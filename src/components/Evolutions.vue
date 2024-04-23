@@ -12,7 +12,7 @@
       <div
         v-if="!!evolution?.name"
         class="step-circle"
-        :style="imageBackgroundColor"
+        :style="`background-color: ${color}`"
       >
         <p>
           {{ evolution.name }}
@@ -45,7 +45,7 @@ export default {
       type: Array,
       required: true,
     },
-    imageBackgroundColor: {
+    color: {
       type: String,
       default: "blue",
     },

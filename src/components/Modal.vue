@@ -4,7 +4,7 @@
     <div class="modal-mask" v-if="show" @click="close">
       <div
         class="modal-container"
-        :style="imageBackgroundColor"
+        :style="`background-color: ${color}`"
         autofocus
         @click="preventClickPropagation"
       >
@@ -53,19 +53,13 @@
             </li>
           </ul>
           <div class="about-tab" v-if="currentTab === 'about'">
-            <About
-              :pokeAbout="pokemon"
-              :imageBackgroundColor="imageBackgroundColor"
-            />
+            <About :pokeAbout="pokemon" :color="color" />
           </div>
           <div v-if="currentTab === 'movement'">
             <MovesTable :pokeMoves="pokemon" :color="color" />
           </div>
           <div v-if="currentTab === 'evolution'">
-            <Evolutions
-              :pokemon="pokemon"
-              :imageBackgroundColor="imageBackgroundColor"
-            />
+            <Evolutions :pokemon="pokemon" :color="color" />
           </div>
           <div v-if="currentTab === 'games'">
             <GamesTable :pokeGame="pokemon" :color="color" />
@@ -126,11 +120,12 @@ export default {
         (pokemon) => pokemon.id === this.$store.state.selectedPokemonId
       );
     },
-    imageBackgroundColor() {
-      return `background-color: ${this.pokemon.specie.color.name}; brightness: 0.4`;
-    },
     color() {
-      return this.pokemon.specie.color.name;
+      const color =
+        this.pokemon.specie.color.name === "white"
+          ? "#cccccc"
+          : this.pokemon.specie.color.name;
+      return color;
     },
     titledName() {
       const string = this.pokemon.name;

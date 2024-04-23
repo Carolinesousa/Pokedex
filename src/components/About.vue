@@ -15,7 +15,7 @@
           v-for="ability in pokeAbout.abilities"
           :key="ability.ability.name"
           class="badge nb-badge m-1"
-          :style="imageBackgroundColor"
+          :style="`background-color: ${color}`"
         >
           {{ ability.ability.name }}
         </span>
@@ -57,7 +57,7 @@ export default {
   },
   props: {
     pokeAbout: Array,
-    imageBackgroundColor: {
+    color: {
       type: String,
       default: "blue;",
     },

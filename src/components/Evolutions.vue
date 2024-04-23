@@ -13,7 +13,6 @@
         v-if="!!evolution?.name"
         class="step-circle"
         :style="`background-color: ${color}`"
-        @click="() => handleOpenModal(evolution)"
       >
         <p>
           {{ evolution.name }}
@@ -63,11 +62,6 @@ export default {
         "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/";
       return baseUrl + pokemonImageUrl.split("/").at(-1);
     },
-    handleOpenModal(evolution) {
-      const URL = evolution.specie.varieties[0].pokemon.url;
-      const id = URL.split("/").at(-2);
-      this.$store.commit("selectPokemon", +id);
-    },
   },
   mounted() {
     this.isLoading = true;
@@ -81,15 +75,6 @@ export default {
           chain?.evolves_to[0]?.species,
           chain?.evolves_to[0]?.evolves_to[0]?.species,
         ].filter((evolution) => evolution);
-
-        this.evolutions.forEach((evolution, index) =>
-          getPokemonDetails(evolution.url).then(({ data }) => {
-            this.evolutions[index] = {
-              ...this.evolutions[index],
-              specie: data,
-            };
-          })
-        );
       })
       .finally(() => (this.isLoading = false));
   },
@@ -128,15 +113,8 @@ export default {
   filter: brightness(1.2);
   border: 4px solid white;
   box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.3);
+}
 
-  cursor: pointer;
-}
-.step-circle:hover {
-  border-radius: 12px;
-  transition-property: border-radius;
-  transition-timing-function: linear;
-  transition-duration: 200ms;
-}
 .step-circle p {
   color: #000;
   font-size: 1rem;

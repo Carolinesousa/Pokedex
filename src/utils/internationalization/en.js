@@ -9,12 +9,13 @@ const enTexts = {
   previousButton: "Previous",
   weight: "Weight",
   height: "Height",
-  abilities: "Abilities",
+  abilities: "Skills",
   gameVersion: "Games Version",
   loadMore: "Load More",
   cardAriaLabel: "Card for",
   loadingAriaLabel: "Loading",
   loadingMoreAriaLabel: "Loading more Pokemons",
+  baseStat: "Base Stat",
 };
 
 export default enTexts;

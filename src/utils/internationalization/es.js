@@ -15,6 +15,7 @@ const esTexts = {
   cardAriaLabel: "Tarjeta para",
   loadingAriaLabel: "Cargando",
   loadingMoreAriaLabel: "Cargando más Pokemons",
+  baseStat: "Estadísticas Iniciales",
 };
 
 export default esTexts;

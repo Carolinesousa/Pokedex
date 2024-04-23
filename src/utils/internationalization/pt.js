@@ -15,6 +15,7 @@ const ptTexts = {
   cardAriaLabel: "Card para",
   loadingAriaLabel: "Carregando",
   loadingMoreAriaLabel: "Carregando mais Pokemons",
+  baseStat: "Atributos Base",
 };
 
 export default ptTexts;

@@ -119,6 +119,7 @@ export default {
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 0;
+  text-transform: capitalize;
 }
 
 .arrow {

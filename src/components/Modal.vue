@@ -5,7 +5,6 @@
       <div
         class="modal-container"
         :style="`background-color: ${color}`"
-        autofocus
         @click="preventClickPropagation"
       >
         <div class="nb-modal-header">
